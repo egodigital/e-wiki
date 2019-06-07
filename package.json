@@ -1,6 +1,6 @@
 {
   "name": "e-wiki",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Sets up one or more wikis via Express.",
   "main": "lib/index.js",
   "scripts": {

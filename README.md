@@ -18,7 +18,7 @@ npm install --save e-wiki
 
 ```typescript
 import * as express from 'express';
-import { setupWikiUI } from 'swagger-jsdoc-express';
+import { setupWikiUI } from 'e-wiki';
 
 const app = express();
 
