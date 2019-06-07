@@ -49,6 +49,22 @@ You should now be able to access the (start) page with `/` url.
 
 You also be able to define a directory structure and store any kind of files, like images or videos, which are handled like on a static HTTP server.
 
+## Charts and diagrams
+
+Markdown pages can also include diagrams and charts, using a language parsed and rendered by [mermaid](https://github.com/knsv/mermaid).
+
+Those have to be put into a code block, which uses `mermaid` as language:
+
+    Example graph:
+    
+    ```mermaid
+    graph TD;
+        A-->B;
+        A-->C;
+        B-->D;
+        C-->D;
+    ```
+
 ## Resources
 
 * [GitHub Markdown Language](https://guides.github.com/features/mastering-markdown/)

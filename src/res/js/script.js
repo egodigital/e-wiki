@@ -32,11 +32,8 @@ jQuery(() => {
     showdown.setOption('tasklists', true);
 });
 
+// initialize page
 jQuery(() => {
-    if ('undefined' === typeof MARKDOWN_CONTENT) {
-        return;
-    }
-
     const CONVERTER = new showdown.Converter();
 
     const HTML = CONVERTER.makeHtml(MARKDOWN_CONTENT);
@@ -44,9 +41,11 @@ jQuery(() => {
     const CONTENT = jQuery(`<div class="ego-markdown" />`);
     CONTENT.html(HTML);
 
+    // remove scripts
     CONTENT.find('script')
         .remove();
 
+    // tables
     CONTENT.find('table')
         .addClass('table')
         .addClass('table-striped')
@@ -56,6 +55,7 @@ jQuery(() => {
     CONTENT.find('img')
         .addClass('img-fluid');
 
+    // update link handling
     CONTENT.find('a').each(function () {
         const A = jQuery(this);
 
@@ -76,7 +76,24 @@ jQuery(() => {
         CONTENT
     );
 
+    // code blocks
     CONTENT.find('pre code').each(function (i, block) {
         hljs.highlightBlock(block);
     });
+
+    // mermaid
+    {
+        CONTENT.find('pre code.language-mermaid').each(function (i, block) {
+            const CODE_BLOCK = jQuery(block);
+            const PRE_BLOCK = CODE_BLOCK.parent();
+
+            const MERMAID_DIV = jQuery('<div class="mermaid ego-mermaid" />');
+            MERMAID_DIV.text(CODE_BLOCK.text());
+
+            PRE_BLOCK.replaceWith(MERMAID_DIV);
+        });
+
+        mermaid.init(undefined,
+            CONTENT.find('.ego-mermaid'));
+    }
 });

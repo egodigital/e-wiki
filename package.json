@@ -1,6 +1,6 @@
 {
   "name": "e-wiki",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Sets up one or more wikis via Express.",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,13 @@
     "wiki",
     "express",
     "app",
-    "documentation"
+    "documentation",
+    "markdown",
+    "http",
+    "server",
+    "mermaid",
+    "chart",
+    "diagram"
   ],
   "author": "e.GO Digital GmbH, Aachen, Germany",
   "license": "LGPL-3.0",
