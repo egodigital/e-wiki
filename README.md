@@ -45,6 +45,8 @@ app.listen(8080, () => {
 
 Create a `index.md` inside the root of your wiki folder and fill it with markdown content.
 
+You should now be able to access the (start) page with `/` url.
+
 You also able to define a directory structure and store any kind of files, like images or videos, which are handled like on a static HTTP server.
 
 ## Resources
