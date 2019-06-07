@@ -38,6 +38,14 @@ export interface SetupWikiUIOptions {
      */
     app: ExpressApp;
     /**
+     * The custom CSS code or the function that provides it.
+     */
+    css?: string | ((file: string) => any);
+    /**
+     * The path to the FavIcon or the function that provides it.
+     */
+    favIcon?: string | ((file: string) => any);
+    /**
      * The path to the page logo or a function that provides it.
      */
     logo?: string | ((file: string) => any);
@@ -101,6 +109,17 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
         };
     }
 
+    let favIconProvider: (file: string) => any;
+    if (opts.favIcon) {
+        if (_.isFunction(opts.favIcon)) {
+            favIconProvider = opts.favIcon as any;
+        } else {
+            favIconProvider = () => toStringSafe(opts.favIcon);
+        }
+    } else {
+        favIconProvider = () => '/img/favicon.ico';
+    }
+
     let logoProvider: (file: string) => any;
     if (opts.logo) {
         if (_.isFunction(opts.logo)) {
@@ -110,6 +129,17 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
         }
     } else {
         logoProvider = () => '/img/ego-logo.svg';
+    }
+
+    let cssGenerator: (file: string) => any;
+    if (opts.css) {
+        if (_.isFunction(opts.css)) {
+            cssGenerator = opts.css as any;
+        } else {
+            cssGenerator = () => toStringSafe(opts.css);
+        }
+    } else {
+        cssGenerator = () => '';
     }
 
     // static resources
@@ -179,17 +209,34 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                             }
 
                             let subTitle = toStringSafe(
-                                await subTitleGenerator(filePath)
+                                await Promise.resolve(
+                                    subTitleGenerator(filePath)
+                                )
                             ).trim();
                             if ('' !== subTitle) {
                                 subTitle = ' :: ' + subTitle;
                             }
 
                             const LOGO = toStringSafe(
-                                logoProvider(filePath)
+                                await Promise.resolve(
+                                    logoProvider(filePath)
+                                )
+                            ).trim();
+
+                            const FAV_ICON = toStringSafe(
+                                await Promise.resolve(
+                                    favIconProvider(filePath)
+                                )
+                            ).trim();
+
+                            const CUSTOM_CSS = toStringSafe(
+                                await Promise.resolve(
+                                    cssGenerator(filePath)
+                                )
                             ).trim();
 
                             const TEMPLATE_DATA: any = {
+                                fav_icon: FAV_ICON,
                                 page_logo: LOGO,
                                 page_title: title,
                                 page_sub_title: subTitle,
@@ -246,7 +293,17 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                             content += `</ol>`;
                             content += `</navbar>`;
 
-                            content += '<div id="ego-content"></div>';
+                            content += `<div id="ego-content"></div>`;
+
+                            if ('' !== CUSTOM_CSS) {
+                                content += `
+<style type="text/css">
+
+${ CUSTOM_CSS}
+
+</style>
+`;
+                            }
 
                             return res.status(200)
                                 .header('Content-type', 'text/html; charset=utf-8')
