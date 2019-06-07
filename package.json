@@ -1,0 +1,49 @@
+{
+  "name": "e-wiki",
+  "version": "0.1.0",
+  "description": "Set ups a folder for Express framework, displaying a wiki page.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "(rm -r ./lib || true) && tsc && tsc -d && (mkdir \"./lib/res\") && (cp -r ./src/res/* ./lib/res)",
+    "deploy": "npm install && npm run build && npm publish",
+    "doc": "(rm -r ./doc || true) && (typedoc --out ./doc ./src)",
+    "sandbox": "ego build && node ./lib/sandbox.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egodigital/e-wiki"
+  },
+  "bugs": {
+    "url": "https://github.com/egodigital/e-wiki/issues"
+  },
+  "homepage": "https://github.com/egodigital/e-wiki#readme",
+  "keywords": [
+    "wiki",
+    "express",
+    "app",
+    "documentation"
+  ],
+  "author": "e.GO Digital GmbH, Aachen, Germany",
+  "license": "LGPL-3.0",
+  "devDependencies": {
+    "@types/ejs": "^2.6.3",
+    "@types/fs-extra": "^7.0.0",
+    "@types/html-entities": "^1.2.16",
+    "@types/mime-types": "^2.1.0",
+    "tslint": "^5.16.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "@types/lodash": "^4.14.129",
+    "@types/node": "^10.14.7",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
+    "fast-glob": "^2.2.7",
+    "fs-extra": "^8.0.1",
+    "html-entities": "^1.2.1",
+    "lodash": "^4.17.11",
+    "mime-types": "^2.1.24"
+  }
+}
