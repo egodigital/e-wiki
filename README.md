@@ -41,7 +41,7 @@ app.listen(8080, () => {
 });
 ```
 
-### Document API
+### Quick start
 
 Create a `index.md` inside the root of your wiki folder and fill it with markdown content.
 
