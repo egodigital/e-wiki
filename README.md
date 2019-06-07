@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/swagger-jsdoc-express.svg)](https://www.npmjs.com/package/swagger-jsdoc-express)
+[![npm](https://img.shields.io/npm/v/e-wiki.svg)](https://www.npmjs.com/package/e-wiki)
 
 # e-wiki
 
