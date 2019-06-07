@@ -65,6 +65,14 @@ Those have to be put into a code block, which uses `mermaid` as language:
         C-->D;
     ```
 
+### Documentation
+
+API documentation can be found [here](https://egodigital.github.io/e-wiki/).
+
 ## Resources
 
 * [GitHub Markdown Language](https://guides.github.com/features/mastering-markdown/)
+
+## Copyright
+
+That software makes use of free version of [MD Bootstrap](https://mdbootstrap.com/).

@@ -42,6 +42,10 @@ export interface SetupWikiUIOptions {
      */
     css?: string | ((file: string) => any);
     /**
+     * The path to additional JavaScript code or the function that provides it.
+     */
+    js?: string | ((file: string) => any);
+    /**
      * The path to the FavIcon or the function that provides it.
      */
     favIcon?: string | ((file: string) => any);
@@ -118,6 +122,15 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
         }
     } else {
         favIconProvider = () => '/img/favicon.ico';
+    }
+
+    let jsProvider: (file: string) => any;
+    if (opts.js) {
+        if (_.isFunction(opts.js)) {
+            jsProvider = opts.js as any;
+        } else {
+            jsProvider = () => toStringSafe(opts.js);
+        }
     }
 
     let logoProvider: (file: string) => any;
@@ -235,6 +248,15 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                                 )
                             ).trim();
 
+                            let customJs: string;
+                            if (jsProvider) {
+                                customJs = toStringSafe(
+                                    await Promise.resolve(
+                                        jsProvider(filePath)
+                                    )
+                                ).trim();
+                            }
+
                             const TEMPLATE_DATA: any = {
                                 fav_icon: FAV_ICON,
                                 page_logo: LOGO,
@@ -302,6 +324,12 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
 ${ CUSTOM_CSS}
 
 </style>
+`;
+                            }
+
+                            if (!isEmptyString(customJs)) {
+                                content += `
+<script type="text/javascript" src="${HTML_ENC.encode(customJs)}"></script>
 `;
                             }
 
