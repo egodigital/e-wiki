@@ -179,15 +179,15 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                             }
 
                             let subTitle = toStringSafe(
-                                await subTitleGenerator(RELATIVE_PATH)
+                                await subTitleGenerator(filePath)
                             ).trim();
                             if ('' !== subTitle) {
                                 subTitle = ' :: ' + subTitle;
                             }
 
                             const LOGO = toStringSafe(
-                                logoProvider(RELATIVE_PATH)
-                            );
+                                logoProvider(filePath)
+                            ).trim();
 
                             const TEMPLATE_DATA: any = {
                                 page_logo: LOGO,

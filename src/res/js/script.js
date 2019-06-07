@@ -41,7 +41,7 @@ jQuery(() => {
 
     const HTML = CONVERTER.makeHtml(MARKDOWN_CONTENT);
 
-    const CONTENT = $(`<div class="ego-markdown" />`);
+    const CONTENT = jQuery(`<div class="ego-markdown" />`);
     CONTENT.html(HTML);
 
     CONTENT.find('script')
@@ -56,11 +56,27 @@ jQuery(() => {
     CONTENT.find('img')
         .addClass('img-fluid');
 
+    CONTENT.find('a').each(function () {
+        const A = jQuery(this);
+
+        const HREF = A.attr('href');
+        if (HREF) {
+            const IS_HTTP_LINK = HREF.toLowerCase().trim().startsWith('http://')
+                || HREF.toLowerCase().trim().startsWith('https://');
+
+            if (IS_HTTP_LINK) {
+                A.attr('target', '_blank');
+            } else {
+                A.removeAttr('target');
+            }
+        }
+    });
+
     jQuery('#ego-content').append(
         CONTENT
     );
 
-    CONTENT.find('pre code').each(function(i, block) {
+    CONTENT.find('pre code').each(function (i, block) {
         hljs.highlightBlock(block);
     });
 });
