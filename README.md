@@ -47,7 +47,7 @@ Create a `index.md` inside the root of your wiki folder and fill it with markdow
 
 You should now be able to access the (start) page with `/` url.
 
-You also able to define a directory structure and store any kind of files, like images or videos, which are handled like on a static HTTP server.
+You also be able to define a directory structure and store any kind of files, like images or videos, which are handled like on a static HTTP server.
 
 ## Resources
 
