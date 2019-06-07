@@ -88,12 +88,17 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
     if (!subTitleGenerator) {
         // default
 
-        subTitleGenerator = (file) =>
-            (
-                path.dirname(file) + '/' + path.basename(
+        subTitleGenerator = (file) => {
+            const REL_PATH = path.relative(
+                srcDir, file
+            );
+
+            return (
+                path.dirname(REL_PATH) + '/' + path.basename(
                     file, path.extname(file)
                 )
             ).substr(2);
+        };
     }
 
     let logoProvider: (file: string) => any;
