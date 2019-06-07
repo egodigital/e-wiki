@@ -38,7 +38,7 @@ export interface SetupWikiUIOptions {
      */
     app: ExpressApp;
     /**
-     * The custom CSS code or the function that provides it.
+     * The path to additional CSS style or the function that provides it.
      */
     css?: string | ((file: string) => any);
     /**
@@ -133,6 +133,15 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
         }
     }
 
+    let cssProvider: (file: string) => any;
+    if (opts.css) {
+        if (_.isFunction(opts.css)) {
+            cssProvider = opts.css as any;
+        } else {
+            cssProvider = () => toStringSafe(opts.css);
+        }
+    }
+
     let logoProvider: (file: string) => any;
     if (opts.logo) {
         if (_.isFunction(opts.logo)) {
@@ -142,17 +151,6 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
         }
     } else {
         logoProvider = () => '/img/ego-logo.svg';
-    }
-
-    let cssGenerator: (file: string) => any;
-    if (opts.css) {
-        if (_.isFunction(opts.css)) {
-            cssGenerator = opts.css as any;
-        } else {
-            cssGenerator = () => toStringSafe(opts.css);
-        }
-    } else {
-        cssGenerator = () => '';
     }
 
     // static resources
@@ -206,7 +204,10 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                         if (
                             !mimeType.startsWith('image/') &&
                             !mimeType.startsWith('video/') &&
-                            !mimeType.endsWith('/json')
+                            !mimeType.endsWith('/json') &&
+                            !mimeType.endsWith('/css') &&
+                            !mimeType.endsWith('/javascript') &&
+                            !mimeType.endsWith('/html')
                         ) {
                             // handle as markdown file
                             const HTML_ENC = new htmlEntities.AllHtmlEntities();
@@ -242,11 +243,14 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
                                 )
                             ).trim();
 
-                            const CUSTOM_CSS = toStringSafe(
-                                await Promise.resolve(
-                                    cssGenerator(filePath)
-                                )
-                            ).trim();
+                            let customCSS: string;
+                            if (cssProvider) {
+                                customCSS = toStringSafe(
+                                    await Promise.resolve(
+                                        cssProvider(filePath)
+                                    )
+                                ).trim();
+                            }
 
                             let customJs: string;
                             if (jsProvider) {
@@ -317,13 +321,9 @@ export function setupWikiUI(opts: SetupWikiUIOptions) {
 
                             content += `<div id="ego-content"></div>`;
 
-                            if ('' !== CUSTOM_CSS) {
+                            if (!isEmptyString(customCSS)) {
                                 content += `
-<style type="text/css">
-
-${ CUSTOM_CSS}
-
-</style>
+<link href="${HTML_ENC.encode(customCSS)}" rel="stylesheet">
 `;
                             }
 
