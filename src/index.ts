@@ -34,9 +34,9 @@ export type ExpressApp = express.Express | express.Router;
  */
 export interface SetupWikiUIOptions {
     /**
-     * The underlying Express host or router.
+     * The underlying Express host or router, where to register router.
      */
-    app: ExpressApp;
+    app?: ExpressApp;
     /**
      * The custom base path.
      */
@@ -85,8 +85,10 @@ const DEFAULT_FILENAME = 'index.md';
  * Initializes wiki UI.
  *
  * @param {InitControllersOptions} opts The options.
+ *
+ * @return {express.Router} The (new) router.
  */
-export function setupWiki(opts: SetupWikiUIOptions) {
+export function setupWiki(opts: SetupWikiUIOptions): express.Router {
     let srcDir = toStringSafe(opts.source);
     if (isEmptyString(srcDir)) {
         srcDir = path.join(
@@ -107,6 +109,14 @@ export function setupWiki(opts: SetupWikiUIOptions) {
     }
     if (!basePath.endsWith('/')) {
         basePath = basePath + '/';
+    }
+
+    let root = toStringSafe(opts.root);
+    if ('' === root.trim()) {
+        root = '/wiki';
+    }
+    if (!root.trim().startsWith('/')) {
+        root = '/' + root;
     }
 
     let subTitleGenerator = opts.subTitle;
@@ -166,14 +176,16 @@ export function setupWiki(opts: SetupWikiUIOptions) {
         logoProvider = () => './img/ego-logo.svg';
     }
 
-    // static resources
-    opts.app.use('/css', express.static(getResourcePath('css')));
-    opts.app.use('/font', express.static(getResourcePath('font')));
-    opts.app.use('/fonts', express.static(getResourcePath('fonts')));
-    opts.app.use('/img', express.static(getResourcePath('img')));
-    opts.app.use('/js', express.static(getResourcePath('js')));
+    const ROUTER = express.Router();
 
-    opts.app.get('*', async (req, res) => {
+    // static resources
+    ROUTER.use('/css', express.static(getResourcePath('css')));
+    ROUTER.use('/font', express.static(getResourcePath('font')));
+    ROUTER.use('/fonts', express.static(getResourcePath('fonts')));
+    ROUTER.use('/img', express.static(getResourcePath('img')));
+    ROUTER.use('/js', express.static(getResourcePath('js')));
+
+    ROUTER.get('*', async (req, res) => {
         try {
             let currentDir = toStringSafe(req.path)
                 .trim()
@@ -397,4 +409,10 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
         return res.status(404)
             .send();
     });
+
+    if (opts.app) {
+        opts.app.use(root, ROUTER);
+    }
+
+    return ROUTER;
 }

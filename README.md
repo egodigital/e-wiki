@@ -24,7 +24,7 @@ import { setupWiki } from 'e-wiki';
 
 const APP = express();
 
-// create a '/swagger' endpoint ...
+// create a '/wiki' endpoint ...
 setupWiki(
     {
         // directly register it in 'APP'
