@@ -301,8 +301,8 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                                     .filter(x => '' !== x.trim());
 
                                 if (PARTS.length) {
-                                    content += `<li class="breadcrumb-item active">
-<a href="/">
+                                    content += `<li class="breadcrumb-item">
+<a href="${HTML_ENC.encode(basePath)}">
     <i class="fa fa-home"></i>
 </a>`;
 
@@ -313,19 +313,14 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                                         let aStart = '';
                                         let aEnd = '';
                                         if (!IS_ACTIVE) {
-                                            let link: string;
-                                            if (i > 0) {
-                                                link = '/' +
-                                                    PARTS.slice(0, i + 1)
-                                                        .map(x => encodeURIComponent(x))
-                                                        .join('/');
-                                                if ('/' !== link.trim()) {
-                                                    if (!link.endsWith('/')) {
-                                                        link += '/';
-                                                    }
+                                            let link = '/' +
+                                                PARTS.slice(0, i + 1)
+                                                    .map(x => encodeURIComponent(x))
+                                                    .join('/');
+                                            if ('/' !== link.trim()) {
+                                                if (!link.endsWith('/')) {
+                                                    link += '/';
                                                 }
-                                            } else {
-                                                link = basePath;
                                             }
 
                                             aStart = `<a href="${HTML_ENC.encode(link)}">`;
