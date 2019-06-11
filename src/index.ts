@@ -121,7 +121,7 @@ export function setupWiki(opts: SetupWikiUIOptions) {
             favIconProvider = () => toStringSafe(opts.favIcon);
         }
     } else {
-        favIconProvider = () => 'img/favicon.ico';
+        favIconProvider = () => './img/favicon.ico';
     }
 
     let jsProvider: (file: string) => any;
@@ -150,7 +150,7 @@ export function setupWiki(opts: SetupWikiUIOptions) {
             logoProvider = () => toStringSafe(opts.logo);
         }
     } else {
-        logoProvider = () => 'img/ego-logo.svg';
+        logoProvider = () => './img/ego-logo.svg';
     }
 
     // static resources
