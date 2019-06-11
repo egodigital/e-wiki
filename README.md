@@ -31,7 +31,7 @@ setupWiki(
         title: 'My wiki',
     },
 
-    // directly register it in 'APP'
+    // directly register it in 'app'
     app
 );
 
