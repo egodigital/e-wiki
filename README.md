@@ -14,6 +14,8 @@ npm install --save e-wiki
 
 ## Example
 
+## Quick start
+
 ### Setup UI
 
 ```typescript
@@ -41,9 +43,9 @@ app.listen(8080, () => {
 });
 ```
 
-### Quick start
+### Create first page
 
-Create a `index.md` inside the root of your wiki folder and fill it with markdown content.
+Create a `index.md` inside the root of your wiki folder and fill it with [Markdown content](https://guides.github.com/features/mastering-markdown/).
 
 You should now be able to access the (start) page with `/` url.
 
@@ -72,6 +74,7 @@ API documentation can be found [here](https://egodigital.github.io/e-wiki/).
 ## Resources
 
 * [GitHub Markdown Language](https://guides.github.com/features/mastering-markdown/)
+* [mermaid](https://github.com/knsv/mermaid)
 
 ## Copyright
 
