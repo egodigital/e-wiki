@@ -38,6 +38,10 @@ export interface SetupWikiUIOptions {
      */
     app: ExpressApp;
     /**
+     * The custom base path.
+     */
+    basePath?: string;
+    /**
      * The path to additional CSS style or the function that provides it.
      */
     css?: string | ((file: string) => any);
@@ -95,6 +99,15 @@ export function setupWiki(opts: SetupWikiUIOptions) {
         );
     }
     srcDir = path.resolve(srcDir);
+
+    let basePath = toStringSafe(opts.basePath)
+        .trim();
+    if (!basePath.startsWith('/')) {
+        basePath = '/' + basePath;
+    }
+    if (!basePath.endsWith('/')) {
+        basePath = basePath + '/';
+    }
 
     let subTitleGenerator = opts.subTitle;
     if (!subTitleGenerator) {
@@ -284,7 +297,7 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                             content += `<nav aria-label="breadcrumb">`;
                             content += `<ol class="breadcrumb">`;
                             {
-                                const PARTS = RELATIVE_PATH.split('/')
+                                const PARTS = (basePath + RELATIVE_PATH).split('/')
                                     .filter(x => '' !== x.trim());
 
                                 if (PARTS.length) {
