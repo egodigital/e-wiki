@@ -310,17 +310,29 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                                         const P = PARTS[i];
                                         const IS_ACTIVE = i === (PARTS.length - 1);
 
+                                        let aStart = '';
+                                        let aEnd = '';
+                                        if (!IS_ACTIVE) {
+                                            let link = '/' +
+                                                PARTS.slice(0, i + 1)
+                                                    .map(x => encodeURIComponent(x))
+                                                    .join('/');
+                                            if ('/' !== link.trim()) {
+                                                if (!link.endsWith('/')) {
+                                                    link += '/';
+                                                }
+                                            }
+
+                                            aStart = `<a href="${HTML_ENC.encode(link)}">`;
+                                            aEnd = `</a>`;
+                                        }
+
                                         content += `<li class="breadcrumb-item${IS_ACTIVE ? ' active' : ''}">${
-                                            IS_ACTIVE ? '' : `<a href="/${
-                                                encodeURIComponent(
-                                                    PARTS.slice(0, i + 1)
-                                                        .join('/')
-                                                )
-                                                }">`
+                                            aStart
                                             }${
                                             HTML_ENC.encode(P.trim())
                                             }${
-                                            IS_ACTIVE ? '' : `</a>`
+                                            aEnd
                                             }</li>`;
                                     }
                                 } else {
