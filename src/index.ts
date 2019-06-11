@@ -82,7 +82,7 @@ const DEFAULT_FILENAME = 'index.md';
  *
  * @param {InitControllersOptions} opts The options.
  */
-export function setupWikiUI(opts: SetupWikiUIOptions) {
+export function setupWiki(opts: SetupWikiUIOptions) {
     let srcDir = toStringSafe(opts.source);
     if (isEmptyString(srcDir)) {
         srcDir = path.join(

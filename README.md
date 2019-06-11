@@ -20,12 +20,12 @@ npm install --save e-wiki
 
 ```typescript
 import * as express from 'express';
-import { setupWikiUI } from 'e-wiki';
+import { setupWiki } from 'e-wiki';
 
 const app = express();
 
 // create a '/swagger' endpoint ...
-setupWikiUI(
+setupWiki(
     {
         cwd: '/root/path/to/wiki/files',
         title: 'My wiki',
