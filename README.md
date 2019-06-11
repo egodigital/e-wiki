@@ -22,19 +22,20 @@ npm install --save e-wiki
 import * as express from 'express';
 import { setupWiki } from 'e-wiki';
 
-const APP = express();
+const app = express();
 
 // create a '/wiki' endpoint ...
 setupWiki(
     {
-        // directly register it in 'APP'
-        app: APP,
         cwd: '/root/path/to/wiki/files',
         title: 'My wiki',
     },
+
+    // directly register it in 'APP'
+    app
 );
 
-APP.listen(8080, () => {
+app.listen(8080, () => {
     // should be available via
     // http://localhost:8080/wiki
     // now

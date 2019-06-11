@@ -32,11 +32,7 @@ export type ExpressApp = express.Express | express.Router;
 /**
  * Options for 'setupWikiUI()' function.
  */
-export interface SetupWikiUIOptions {
-    /**
-     * The underlying Express host or router, where to register router.
-     */
-    app?: ExpressApp;
+export interface SetupWikiOptions {
     /**
      * The custom base path.
      */
@@ -84,11 +80,12 @@ const DEFAULT_FILENAME = 'index.md';
 /**
  * Initializes wiki UI.
  *
- * @param {InitControllersOptions} opts The options.
+ * @param {SetupWikiOptions} opts The options.
+ * @param {ExpressApp} [app] The optional app / router instance where to register the UI.
  *
  * @return {express.Router} The (new) router.
  */
-export function setupWiki(opts: SetupWikiUIOptions): express.Router {
+export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Router {
     let srcDir = toStringSafe(opts.source);
     if (isEmptyString(srcDir)) {
         srcDir = path.join(
@@ -410,8 +407,8 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
             .send();
     });
 
-    if (opts.app) {
-        opts.app.use(root, ROUTER);
+    if (app) {
+        app.use(root, ROUTER);
     }
 
     return ROUTER;
