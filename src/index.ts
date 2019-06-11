@@ -313,14 +313,19 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                                         let aStart = '';
                                         let aEnd = '';
                                         if (!IS_ACTIVE) {
-                                            let link = '/' +
-                                                PARTS.slice(0, i + 1)
-                                                    .map(x => encodeURIComponent(x))
-                                                    .join('/');
-                                            if ('/' !== link.trim()) {
-                                                if (!link.endsWith('/')) {
-                                                    link += '/';
+                                            let link: string;
+                                            if (i > 0) {
+                                                link = '/' +
+                                                    PARTS.slice(0, i + 1)
+                                                        .map(x => encodeURIComponent(x))
+                                                        .join('/');
+                                                if ('/' !== link.trim()) {
+                                                    if (!link.endsWith('/')) {
+                                                        link += '/';
+                                                    }
                                                 }
+                                            } else {
+                                                link = basePath;
                                             }
 
                                             aStart = `<a href="${HTML_ENC.encode(link)}">`;

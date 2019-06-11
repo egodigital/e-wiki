@@ -1,6 +1,6 @@
 # Change Log (e-wiki)
 
-## 1.1.1
+## 1.1.2
 
 * added `basePath` property to [SetupWikiUIOptions](https://egodigital.github.io/e-wiki/interfaces/_index_.setupwikiuioptions.html) interface
 * (bug)fixes
