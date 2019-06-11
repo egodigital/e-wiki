@@ -273,11 +273,11 @@ export function setupWiki(opts: SetupWikiUIOptions) {
                             const FOOTER = await loadEJS('footer', TEMPLATE_DATA);
 
                             let content = `
-    <script type="text/javascript">
-    const MARKDOWN_CONTENT = ${JSON.stringify(
+<script type="text/javascript">
+const MARKDOWN_CONTENT = ${JSON.stringify(
                                 await fs.readFile(filePath, 'utf8')
                             )};
-    </script>
+</script>
     `;
 
                             // Breadcrumb
@@ -340,36 +340,36 @@ export function setupWiki(opts: SetupWikiUIOptions) {
                                         HEADER + content + FOOTER, 'utf8'
                                     )
                                 );
-                        } else {
-                            // resource file.
-
-                            res.status(200)
-                                .header('Content-type', mimeType);
-
-                            if (
-                                !mimeType.startsWith('text/') &&
-                                !mimeType.startsWith('image/') &&
-                                !mimeType.startsWith('video/') &&
-                                !mimeType.endsWith('/json')
-                            ) {
-                                res.header('Content-disposition', `attachment; filename="${path.basename(filePath)}"`);
-                            }
-
-                            fs.createReadStream(filePath)
-                                .pipe(res);
                         }
+
+                        // resource file ...
+
+                        res.status(200)
+                            .header('Content-type', mimeType);
+
+                        if (
+                            !mimeType.startsWith('text/') &&
+                            !mimeType.startsWith('image/') &&
+                            !mimeType.startsWith('video/') &&
+                            !mimeType.endsWith('/json')
+                        ) {
+                            res.header('Content-disposition', `attachment; filename="${path.basename(filePath)}"`);
+                        }
+
+                        fs.createReadStream(filePath)
+                            .pipe(res);
 
                         return;
                     }
                 }
             }
-
-            return res.status(404)
-                .send();
         } catch (e) {
             return res.status(500)
                 .header('Content-type', 'text/plain; charset=utf-8')
                 .send(Buffer.from(toStringSafe(e), 'utf8'));
         }
+
+        return res.status(404)
+            .send();
     });
 }

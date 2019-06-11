@@ -1,7 +1,7 @@
 {
   "name": "e-wiki",
-  "version": "0.7.0",
-  "description": "Sets up one or more wikis via Express.",
+  "version": "1.0.0",
+  "description": "Sets up one or more static wikis via Express.",
   "main": "lib/index.js",
   "scripts": {
     "build": "(rm -r ./lib || true) && tsc && tsc -d && (mkdir \"./lib/res\") && (cp -r ./src/res/* ./lib/res)",

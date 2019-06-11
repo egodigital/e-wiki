@@ -2,7 +2,7 @@
 
 # e-wiki
 
-Sets up one or more [wikis](https://github.com/showdownjs/showdown) via [Express](https://expressjs.com/).
+Sets up one or more static [wikis](https://github.com/showdownjs/showdown) via [Express](https://expressjs.com/).
 
 ## Install
 
