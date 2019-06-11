@@ -27,7 +27,7 @@ const app = express();
 // create a '/wiki' endpoint ...
 setupWiki(
     {
-        cwd: '/root/path/to/wiki/files',
+        source: '/root/path/to/wiki/files',
         title: 'My wiki',
     },
 
