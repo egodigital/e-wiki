@@ -297,7 +297,7 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                             content += `<nav aria-label="breadcrumb">`;
                             content += `<ol class="breadcrumb">`;
                             {
-                                const PARTS = (basePath + RELATIVE_PATH).split('/')
+                                const PARTS = RELATIVE_PATH.split('/')
                                     .filter(x => '' !== x.trim());
 
                                 if (PARTS.length) {
@@ -313,11 +313,11 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
                                         let aStart = '';
                                         let aEnd = '';
                                         if (!IS_ACTIVE) {
-                                            let link = '/' +
+                                            let link = basePath +
                                                 PARTS.slice(0, i + 1)
                                                     .map(x => encodeURIComponent(x))
                                                     .join('/');
-                                            if ('/' !== link.trim()) {
+                                            if ('/' !== link) {
                                                 if (!link.endsWith('/')) {
                                                     link += '/';
                                                 }
