@@ -141,7 +141,7 @@ export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Rou
             favIconProvider = () => toStringSafe(opts.favIcon);
         }
     } else {
-        favIconProvider = () => './img/favicon.ico';
+        favIconProvider = () => basePath + 'img/favicon.ico';
     }
 
     let jsProvider: (file: string) => any;
@@ -170,7 +170,7 @@ export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Rou
             logoProvider = () => toStringSafe(opts.logo);
         }
     } else {
-        logoProvider = () => './img/ego-logo.svg';
+        logoProvider = () =>  basePath + 'img/ego-logo.svg';
     }
 
     const ROUTER = express.Router();

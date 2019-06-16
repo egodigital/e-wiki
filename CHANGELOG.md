@@ -1,6 +1,6 @@
 # Change Log (e-wiki)
 
-## 2.1.0
+## 2.1.1
 
 * updated to `ejs@^2.6.2`
 * (bug)fixes
