@@ -284,6 +284,7 @@ export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Rou
                             }
 
                             const TEMPLATE_DATA: any = {
+                                base_path: basePath,
                                 fav_icon: FAV_ICON,
                                 page_logo: LOGO,
                                 page_title: title,

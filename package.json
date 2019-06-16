@@ -1,6 +1,6 @@
 {
   "name": "e-wiki",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Sets up one or more static wikis via Express.",
   "main": "lib/index.js",
   "scripts": {
@@ -36,16 +36,15 @@
     "@types/fs-extra": "^7.0.0",
     "@types/html-entities": "^1.2.16",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^10.14.8",
+    "@types/node": "^10.14.9",
     "tslint": "^5.16.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5"
+    "typescript": "3.4.5"
   },
   "dependencies": {
     "@types/express": "^4.16.1",
     "@types/lodash": "^4.14.129",
-    "@types/node": "^10.14.7",
-    "ejs": "^2.6.1",
+    "ejs": "^2.6.2",
     "express": "^4.17.0",
     "fast-glob": "^2.2.7",
     "fs-extra": "^8.0.1",

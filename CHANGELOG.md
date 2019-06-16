@@ -1,6 +1,11 @@
 # Change Log (e-wiki)
 
-## 2.0.0
+## 2.1.0
+
+* updated to `ejs@^2.6.2`
+* (bug)fixes
+
+## 2.0.2
 
 * `SetupWikiUIOptions` => [SetupWikiOptions](https://egodigital.github.io/e-wiki/interfaces/_index_.setupwikioptions.html)
 * Express app or router instance is submitted as 2nd parameter of [setupWiki()](https://egodigital.github.io/e-wiki/modules/_index_.html#setupwiki) now
