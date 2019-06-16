@@ -21,7 +21,7 @@ import * as fs from 'fs-extra';
 import * as htmlEntities from 'html-entities';
 import * as mimeTypes from 'mime-types';
 import * as path from 'path';
-import { exists, getResourcePath, isEmptyString, loadEJS, toStringSafe } from './util';
+import { exists, getResourcePath, isEmptyString, loadEJS, normalizeString, toStringSafe } from './util';
 
 
 /**
@@ -61,6 +61,10 @@ export interface SetupWikiOptions {
      * The custom current source directory. Default: '{PROCESS}/controllers'
      */
     source?: string;
+    /**
+     * Name of the highlight.js CSS theme or the function, that provides it. Default: 'mono-blue'
+     */
+    syntaxTheme?: string | ((file: string) => any);
     /**
      * The function that generates the sub title.
      *
@@ -170,7 +174,18 @@ export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Rou
             logoProvider = () => toStringSafe(opts.logo);
         }
     } else {
-        logoProvider = () =>  basePath + 'img/ego-logo.svg';
+        logoProvider = () => basePath + 'img/ego-logo.svg';
+    }
+
+    let syntaxThemeProvider: (file: string) => any;
+    if (opts.syntaxTheme) {
+        if (_.isFunction(opts.syntaxTheme)) {
+            syntaxThemeProvider = opts.syntaxTheme as any;
+        } else {
+            syntaxThemeProvider = () => toStringSafe(opts.syntaxTheme);
+        }
+    } else {
+        syntaxThemeProvider = () => 'mono-blue';
     }
 
     const ROUTER = express.Router();
@@ -283,12 +298,22 @@ export function setupWiki(opts: SetupWikiOptions, app?: ExpressApp): express.Rou
                                 ).trim();
                             }
 
+                            let syntaxTheme: string;
+                            if (syntaxThemeProvider) {
+                                syntaxTheme = normalizeString(
+                                    await Promise.resolve(
+                                        syntaxThemeProvider(filePath)
+                                    )
+                                );
+                            }
+
                             const TEMPLATE_DATA: any = {
                                 base_path: basePath,
                                 fav_icon: FAV_ICON,
                                 page_logo: LOGO,
                                 page_title: title,
                                 page_sub_title: subTitle,
+                                syntax_theme: syntaxTheme,
                             };
 
                             // header and footer

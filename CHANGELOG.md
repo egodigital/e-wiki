@@ -1,5 +1,9 @@
 # Change Log (e-wiki)
 
+## 2.2.0
+
+* added `syntaxTheme` to [SetupWikiOptions](https://egodigital.github.io/e-wiki/interfaces/_index_.setupwikioptions.html), which can define a [custom style for syntax highlighting](https://highlightjs.org/)
+
 ## 2.1.1
 
 * updated to `ejs@^2.6.2`
