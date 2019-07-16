@@ -1,5 +1,10 @@
 # Change Log (e-wiki)
 
+## 2.3.0
+
+* updated to `fs-extra@^8.1.0`
+* updated to `lodash@^4.17.14`
+
 ## 2.2.0
 
 * added `syntaxTheme` to [SetupWikiOptions](https://egodigital.github.io/e-wiki/interfaces/_index_.setupwikioptions.html), which can define a [custom style for syntax highlighting](https://highlightjs.org/)
