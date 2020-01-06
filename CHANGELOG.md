@@ -1,5 +1,11 @@
 # Change Log (e-wiki)
 
+## 3.0.0
+
+* updated to `ejs@^2.7.4`
+* updated to `lodash@^4.17.15`
+* updated to `mime-types@^2.1.26`
+
 ## 2.3.0
 
 * updated to `fs-extra@^8.1.0`

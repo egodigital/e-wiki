@@ -434,6 +434,7 @@ const MARKDOWN_CONTENT = ${JSON.stringify(
     });
 
     if (app) {
+        // @ts-ignore
         app.use(root, ROUTER);
     }
 
