@@ -1,5 +1,11 @@
 # Change Log (e-wiki)
 
+## 4.0.0
+
+* updated to `ejs@^3.0.1`
+* updated to `express@^4.17.1`
+* updated to `fast-glob@^3.1.1`
+
 ## 3.0.0
 
 * updated to `ejs@^2.7.4`
