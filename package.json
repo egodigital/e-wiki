@@ -1,6 +1,6 @@
 {
   "name": "e-wiki",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Sets up one or more static wikis via Express.",
   "main": "lib/index.js",
   "scripts": {
