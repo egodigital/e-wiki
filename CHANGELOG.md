@@ -1,6 +1,10 @@
 # Change Log (e-wiki)
 
-## 4.0.0
+## 4.1.0
+
+* npm update
+
+## 4.0.1
 
 * updated to `ejs@^3.0.1`
 * updated to `express@^4.17.1`
